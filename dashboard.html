@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard</title>
+
+<link rel="stylesheet" href="styles.css">
+
+<style>
+/* DASHBOARD LAYOUT */
+.dashboard {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  min-height: 100vh;
+}
+
+/* SIDEBAR */
+.sidebar {
+  background: #0b1640;
+  padding: 20px;
+  border-right: 1px solid rgba(255,255,255,0.1);
+}
+
+.sidebar h2 {
+  margin-bottom: 20px;
+}
+
+.sidebar a {
+  display: block;
+  padding: 10px;
+  color: #ccc;
+  text-decoration: none;
+  border-radius: 10px;
+}
+
+.sidebar a:hover {
+  background: rgba(255,255,255,0.05);
+}
+
+/* MAIN */
+.main {
+  padding: 20px;
+}
+
+/* HEADER */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+/* CARDS */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+  gap: 20px;
+}
+
+.stat-card {
+  background: rgba(255,255,255,0.06);
+  padding: 20px;
+  border-radius: 15px;
+}
+
+/* CHAT BOX */
+.chat-box {
+  margin-top: 30px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 15px;
+  padding: 20px;
+}
+
+.chat-messages {
+  height: 200px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
+
+.chat-input {
+  display: flex;
+  gap: 10px;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+}
+
+.chat-input button {
+  padding: 10px 20px;
+  border-radius: 10px;
+  background: #7c3aed;
+  border: none;
+  color: white;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+  .dashboard {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    display: none;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="dashboard">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <h2>StudyBuddy</h2>
+    <a href="index.html">Home</a>
+    <a href="#">Dashboard</a>
+    <a href="#">Progress</a>
+    <a href="#">Settings</a>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- TOP BAR -->
+    <div class="topbar">
+     <h1>Dashboard</h1>
+
+     <div style="display:flex; gap:10px;">
+     <button class="btn-primary">Upgrade</button>
+     <button onclick="logout()" class="btn-primary">Logout</button>
+     </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats">
+      <div class="stat-card">
+        <h3>12</h3>
+        <p>Sessions Completed</p>
+      </div>
+
+      <div class="stat-card">
+        <h3>5 hrs</h3>
+        <p>Learning Time</p>
+      </div>
+
+      <div class="stat-card">
+        <h3>8</h3>
+        <p>Topics Covered</p>
+      </div>
+    </div>
+
+    <!-- CHAT -->
+    <div class="chat-box">
+      <h3>AI Tutor</h3>
+
+      <div class="chat-messages" id="chatMessages">
+        <p>🤖 Hello! Ask me anything...</p>
+      </div>
+
+      <div class="chat-input">
+        <input type="text" id="chatInput" placeholder="Ask something...">
+        <button onclick="sendMessage()">Send</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function sendMessage() {
+  const input = document.getElementById("chatInput");
+  const messages = document.getElementById("chatMessages");
+
+  if (input.value.trim() === "") return;
+
+  messages.innerHTML += `<p>🧑 ${input.value}</p>`;
+  messages.innerHTML += `<p>🤖 Thinking...</p>`;
+
+  input.value = "";
+
+  messages.scrollTop = messages.scrollHeight;
+}
+</script>
+
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
+<script src="auth.js"></script>
+
+</body>
+</html>

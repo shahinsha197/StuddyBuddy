@@ -1,0 +1,132 @@
+:root {
+  --bg: #050d2a;
+  --primary: #7c3aed;
+  --text: #fff;
+  --glass: rgba(255,255,255,0.06);
+  --border: rgba(255,255,255,0.1);
+}
+
+/* RESET */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* LAYOUT */
+.container {
+  width: 90%;
+  max-width: 1100px;
+  margin: auto;
+}
+
+.section {
+  padding: 80px 0;
+}
+
+/* HERO */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-top: 120px;
+  gap: 40px;
+}
+
+.gradient {
+  color: #9d5aff;
+}
+
+/* HERO CARD */
+.hero-card {
+  background: var(--glass);
+  padding: 60px;
+  border-radius: 20px;
+  text-align: center;
+}
+
+.hero-card img {
+  width: 120px;
+  transition: 0.4s;
+}
+
+.hero-card:hover img {
+  transform: scale(1.1) rotate(2deg);
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+  gap: 20px;
+}
+
+/* CARD */
+.card {
+  background: var(--glass);
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+  transition: 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ICON */
+.icon {
+  width: 60px;
+  margin-bottom: 12px;
+  transition: 0.4s;
+}
+
+/* ICON HOVER */
+.card:hover .icon {
+  transform: translateY(-8px) scale(1.1);
+}
+
+/* CARD HOVER */
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 50px rgba(124,58,237,0.3);
+}
+
+/* GLOW */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top, rgba(124,58,237,0.2), transparent);
+  opacity: 0;
+  transition: 0.4s;
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+/* BUTTON */
+.btn-primary {
+  background: var(--primary);
+  padding: 12px 25px;
+  border-radius: 25px;
+  border: none;
+  color: white;
+}
+
+/* SCROLL ANIMATION */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: 0.6s;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+  .hero { grid-template-columns: 1fr; }
+}
