@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | StudyBuddy AI</title>
+    <title>Register | StudyBuddy AI</title>
     <link rel="stylesheet" href="styles.css">
     <script>document.documentElement.classList.add('js-enabled');</script>
 </head>
@@ -15,25 +15,29 @@
             StudyBuddy <span style="color: var(--accent);">AI</span>
         </div>
         
-        <h2 style="margin-bottom: 10px;">Welcome Back</h2>
-        <p style="color: #9ca3af; margin-bottom: 30px;">Login to continue your journey.</p>
+        <h2 style="margin-bottom: 10px;">Create Account</h2>
+        <p style="color: #9ca3af; margin-bottom: 30px;">Start your personalized learning path.</p>
 
         <div style="display: flex; flex-direction: column; gap: 15px; text-align: left;">
+            <label style="font-size: 0.9rem; color: #9ca3af;">Full Name</label>
+            <input type="text" id="name" placeholder="John Doe" 
+                   style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 12px; color: white;">
+
             <label style="font-size: 0.9rem; color: #9ca3af;">Email Address</label>
             <input type="email" id="email" placeholder="name@company.com" 
                    style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 12px; color: white;">
             
             <label style="font-size: 0.9rem; color: #9ca3af;">Password</label>
-            <input type="password" id="password" placeholder="••••••••" 
+            <input type="password" id="password" placeholder="Create a password" 
                    style="padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 12px; color: white;">
         </div>
 
-        <button onclick="login()" class="btn-glow" style="width: 100%; margin-top: 30px; padding: 15px;">
-            Sign In
+        <button onclick="register()" class="btn-glow" style="width: 100%; margin-top: 30px; padding: 15px;">
+            Create Account
         </button>
 
         <p style="margin-top: 25px; color: #9ca3af; font-size: 0.9rem;">
-            Don't have an account? <a href="register.html" style="color: var(--accent); text-decoration: none;">Register</a>
+            Already have an account? <a href="login.html" style="color: var(--accent); text-decoration: none;">Login</a>
         </p>
     </div>
 </div>

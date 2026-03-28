@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Progress | StudyBuddy AI</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body style="display: grid; grid-template-columns: 280px 1fr; height: 100vh;">
+
+    <aside style="background: var(--glass); border-right: 1px solid var(--border); padding: 40px;">
+        <h2 style="margin-bottom: 40px;">StudyBuddy <span style="color:var(--accent)">AI</span></h2>
+        <nav style="display: flex; flex-direction: column; gap: 15px;">
+            <a href="index.html" class="card" style="padding: 15px; text-decoration: none; color: white;">Home</a>
+            <a href="dashboard.html" class="card" style="padding: 15px; text-decoration: none; color: white;">Dashboard</a>
+            <a href="#" class="card" style="padding: 15px; text-decoration: none; color: white; border-color: var(--primary);">My Progress</a>
+        </nav>
+    </aside>
+
+    <main style="padding: 60px; overflow-y: auto;">
+        <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 50px;">
+            <h1>Learning Progress</h1>
+            <img src="images/chart.png" alt="Progress" style="width: 80px; filter: drop-shadow(0 0 15px var(--primary));">
+        </header>
+
+        <div id="progressList" style="display: flex; flex-direction: column; gap: 20px;">
+            <div class="card">
+                <p style="color: var(--text-muted);">Syncing with neural network...</p>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+    <script src="auth.js"></script>
+
+    <script>
+        auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                const topics = await getUserTopics();
+                renderProgress(topics);
+            }
+        });
+
+        function renderProgress(topics) {
+            const list = document.getElementById("progressList");
+            if (!topics || topics.length === 0) {
+                list.innerHTML = `<div class="card"><p>No topics started yet. Start learning from the dashboard!</p></div>`;
+                return;
+            }
+
+            list.innerHTML = topics.map(topic => `
+                <div class="card" style="display: flex; justify-content: space-between; align-items: center; text-align: left;">
+                    <div>
+                        <h3 style="color: var(--accent); margin-bottom: 5px;">${topic.name}</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-muted);">Started: ${topic.timestamp?.toDate().toLocaleDateString() || 'Recently'}</p>
+                    </div>
+                    <div style="background: var(--primary); padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: bold;">
+                        ${topic.status || 'Active'}
+                    </div>
+                </div>
+            `).join('');
+        }
+    </script>
+</body>
+</html>

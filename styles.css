@@ -1,81 +1,185 @@
-/* --- Design System --- */
+/* --- Global Theme & Variables --- */
 :root {
   --bg: #030712;
-  --primary: #7c3aed;
+  --primary: #9061f9; /* Updated to your requested purple */
+  --primary-light: #a782fa;
   --accent: #00d4ff;
-  --glass: rgba(255, 255, 255, 0.03);
-  --glass-border: rgba(255, 255, 255, 0.1);
-  --text: #f9fafb;
+  --glass: rgba(255, 255, 255, 0.05);
+  --border: rgba(255, 255, 255, 0.1);
+  --text: #ffffff;
   --text-muted: #9ca3af;
-  --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
+  margin: 0;
+  padding: 0;
   font-family: 'Inter', sans-serif;
   background-color: var(--bg);
-  background-image: radial-gradient(circle at 10% 10%, rgba(124, 58, 237, 0.1), transparent 40%);
+  background-image: radial-gradient(circle at top left, rgba(144, 97, 249, 0.15), transparent);
   color: var(--text);
-  line-height: 1.6;
+  overflow-x: hidden;
 }
 
-.container { width: 90%; max-width: 1200px; margin: auto; }
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
 
-/* --- Reusable Glass Card --- */
+/* --- Layout Elements --- */
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 100px 0;
+  gap: 30px;
+}
+
+.hero-content { flex: 1; }
+.hero-visual { flex: 1; display: flex; justify-content: center; }
+
+.hero-img {
+  width: 100%;
+  max-width: 400px;
+  filter: drop-shadow(0 0 20px var(--primary));
+}
+
+/* --- Grid & Cards --- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 50px 0;
+}
+
 .card {
   background: var(--glass);
-  backdrop-filter: blur(12px);
-  border: 1px solid var(--glass-border);
-  border-radius: 24px;
-  padding: 2rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 25px;
+  text-align: center;
   transition: var(--transition);
 }
 
 .card:hover {
-  transform: translateY(-10px);
+  transform: translateY(-5px);
   border-color: var(--primary);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
 }
 
-/* --- Image Scaling --- */
-.hero-img {
-  width: 100%;
-  max-width: 450px;
-  height: auto;
-  filter: drop-shadow(0 0 30px rgba(124, 58, 237, 0.3));
-  animation: float 6s ease-in-out infinite;
-}
+.icon-img { width: 70px; margin-bottom: 15px; }
 
-.icon-img {
-  width: 80px;
-  height: 80px;
-  object-fit: contain;
-  margin-bottom: 1.5rem;
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-20px); }
-}
-
-/* --- Buttons --- */
-.btn-primary {
-  background: var(--primary);
-  color: white;
-  padding: 1rem 2.5rem;
-  border-radius: 50px;
-  border: none;
+/* --- THE 3D PILL BUTTON (#9061f9) --- */
+.button-17 {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, var(--primary-light) 0%, var(--primary) 100%);
+  color: #ffffff !important;
+  text-decoration: none !important;
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
   font-weight: 700;
+  height: 54px;
+  padding: 0 45px;
+  border-radius: 100px;
+  border: none;
   cursor: pointer;
-  transition: var(--transition);
+  position: relative;
+  transition: all 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+  box-sizing: border-box;
+  z-index: 1;
+  
+  /* The 3D "Bulge" Effect */
+  /* 1. Outer Glow | 2. Top Inner Highlight | 3. Bottom Inner Shadow */
+  box-shadow: 
+    0 10px 20px -5px rgba(144, 97, 249, 0.5),
+    inset 0 4px 5px rgba(255, 255, 255, 0.5),
+    inset 0 -4px 5px rgba(0, 0, 0, 0.3);
 }
 
-.btn-primary:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 20px var(--primary);
+.button-17:hover {
+  transform: translateY(-3px) scale(1.02);
+  background: linear-gradient(180deg, #b395ff 0%, var(--primary) 100%);
+  box-shadow: 
+    0 15px 30px -5px rgba(144, 97, 249, 0.6),
+    inset 0 4px 5px rgba(255, 255, 255, 0.6);
 }
 
-/* --- Animations --- */
-.reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
-.reveal.visible { opacity: 1; transform: translateY(0); }
+.button-17:active {
+  transform: translateY(2px) scale(0.97);
+  /* Reverse shadows to look "pressed in" */
+  box-shadow: 
+    0 5px 10px rgba(144, 97, 249, 0.3),
+    inset 0 5px 8px rgba(0, 0, 0, 0.4),
+    inset 0 -2px 4px rgba(255, 255, 255, 0.2);
+}
+
+.button-17:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* --- Navigation & Footer --- */
+.accent-text { color: var(--accent); }
+
+.footer {
+  background: var(--glass);
+  backdrop-filter: blur(15px);
+  border-top: 1px solid var(--border);
+  padding: 80px 0 30px;
+  margin-top: 100px;
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 50px;
+  flex-wrap: wrap;
+  margin-bottom: 50px;
+}
+
+.footer-brand { max-width: 300px; text-align: left; }
+.footer-links { display: flex; gap: 80px; }
+.link-group { text-align: left; }
+.link-group h4 { margin-bottom: 20px; color: var(--text); }
+.link-group a { 
+    display: block; 
+    color: var(--text-muted); 
+    text-decoration: none; 
+    margin-bottom: 12px; 
+    transition: var(--transition);
+}
+.link-group a:hover { color: var(--primary); padding-left: 5px; }
+
+.footer-bottom {
+  border-top: 1px solid var(--border);
+  padding-top: 30px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+/* --- Reveal System --- */
+.reveal {
+  opacity: 1; 
+  transform: none;
+  transition: all 0.8s ease-out;
+}
+
+.js-enabled .reveal {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.js-enabled .reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .hero { flex-direction: column; text-align: center; }
+  .footer-inner { flex-direction: column; }
+  .footer-links { gap: 40px; }
+}
