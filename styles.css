@@ -1,24 +1,28 @@
-/* --- Global Theme & Variables --- */
+/* --- 1. Global Theme & Variables --- */
 :root {
   --bg: #030712;
-  --primary: #9061f9; /* Updated to your requested purple */
+  --nav-bg: rgba(10, 12, 26, 0.75);
+  --primary: #9061f9;
   --primary-light: #a782fa;
   --accent: #00d4ff;
   --glass: rgba(255, 255, 255, 0.05);
-  --border: rgba(255, 255, 255, 0.1);
+  --border: rgba(144, 97, 249, 0.2);
   --text: #ffffff;
   --text-muted: #9ca3af;
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* --- 2. Base Styles --- */
 body {
   margin: 0;
   padding: 0;
+  padding-top: 80px; /* Space for fixed navbar */
   font-family: 'Inter', sans-serif;
   background-color: var(--bg);
   background-image: radial-gradient(circle at top left, rgba(144, 97, 249, 0.15), transparent);
   color: var(--text);
   overflow-x: hidden;
+  line-height: 1.6;
 }
 
 .container {
@@ -27,7 +31,72 @@ body {
   margin: 0 auto;
 }
 
-/* --- Layout Elements --- */
+/* --- 3. Enhanced Glass Navbar --- */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  z-index: 9999;
+  background: var(--nav-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  transition: var(--transition);
+}
+
+.navbar.scrolled {
+  background: rgba(3, 7, 18, 0.95);
+  height: 70px;
+}
+
+.nav-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Logo Styling */
+.logo {
+  text-decoration: none;
+  font-weight: 900;
+  font-size: 26px;
+  display: flex;
+  letter-spacing: -1px;
+}
+
+.logo-study { color: #ffffff; }
+.logo-buddy { 
+  color: var(--primary); 
+  text-shadow: 0 0 10px rgba(144, 97, 249, 0.4); 
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 35px;
+  margin: 0;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 15px;
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.nav-links a:hover { color: var(--primary); }
+
+/* --- 4. Hero Section --- */
 .hero {
   display: flex;
   align-items: center;
@@ -45,7 +114,40 @@ body {
   filter: drop-shadow(0 0 20px var(--primary));
 }
 
-/* --- Grid & Cards --- */
+/* --- 5. THE 3D PILL BUTTON --- */
+.button-17 {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, var(--primary-light) 0%, var(--primary) 100%);
+  color: #ffffff !important;
+  text-decoration: none !important;
+  font-weight: 700;
+  height: 54px;
+  padding: 0 45px;
+  border-radius: 100px;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+  box-shadow: 
+    0 10px 20px -5px rgba(144, 97, 249, 0.5),
+    inset 0 4px 5px rgba(255, 255, 255, 0.5),
+    inset 0 -4px 5px rgba(0, 0, 0, 0.3);
+}
+
+.button-17:hover {
+  transform: translateY(-3px) scale(1.02);
+  background: linear-gradient(180deg, #b395ff 0%, var(--primary) 100%);
+  box-shadow: 0 15px 30px -5px rgba(144, 97, 249, 0.6), inset 0 4px 5px rgba(255, 255, 255, 0.6);
+}
+
+.button-17:active {
+  transform: translateY(2px) scale(0.97);
+  box-shadow: 0 5px 10px rgba(144, 97, 249, 0.3), inset 0 5px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* --- 6. Grid & Cards --- */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -56,80 +158,31 @@ body {
 .card {
   background: var(--glass);
   backdrop-filter: blur(10px);
-  border: 1px solid var(--border);
+  border: 1px solid rgba(255,255,255,0.1);
   border-radius: 20px;
   padding: 25px;
   text-align: center;
   transition: var(--transition);
 }
 
-.card:hover {
-  transform: translateY(-5px);
-  border-color: var(--primary);
+.card:hover { transform: translateY(-5px); border-color: var(--primary); }
+
+.icon-img { 
+  width: 64px; 
+  height: 64px; 
+  margin-bottom: 20px; 
+  filter: drop-shadow(0 5px 10px rgba(0, 212, 255, 0.2)); 
 }
 
-.icon-img { width: 70px; margin-bottom: 15px; }
-
-/* --- THE 3D PILL BUTTON (#9061f9) --- */
-.button-17 {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(180deg, var(--primary-light) 0%, var(--primary) 100%);
-  color: #ffffff !important;
-  text-decoration: none !important;
-  font-family: "Inter", sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  height: 54px;
-  padding: 0 45px;
-  border-radius: 100px;
-  border: none;
-  cursor: pointer;
-  position: relative;
-  transition: all 0.2s cubic-bezier(0.23, 1, 0.32, 1);
-  box-sizing: border-box;
-  z-index: 1;
-  
-  /* The 3D "Bulge" Effect */
-  /* 1. Outer Glow | 2. Top Inner Highlight | 3. Bottom Inner Shadow */
-  box-shadow: 
-    0 10px 20px -5px rgba(144, 97, 249, 0.5),
-    inset 0 4px 5px rgba(255, 255, 255, 0.5),
-    inset 0 -4px 5px rgba(0, 0, 0, 0.3);
-}
-
-.button-17:hover {
-  transform: translateY(-3px) scale(1.02);
-  background: linear-gradient(180deg, #b395ff 0%, var(--primary) 100%);
-  box-shadow: 
-    0 15px 30px -5px rgba(144, 97, 249, 0.6),
-    inset 0 4px 5px rgba(255, 255, 255, 0.6);
-}
-
-.button-17:active {
-  transform: translateY(2px) scale(0.97);
-  /* Reverse shadows to look "pressed in" */
-  box-shadow: 
-    0 5px 10px rgba(144, 97, 249, 0.3),
-    inset 0 5px 8px rgba(0, 0, 0, 0.4),
-    inset 0 -2px 4px rgba(255, 255, 255, 0.2);
-}
-
-.button-17:focus {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
-}
-
-/* --- Navigation & Footer --- */
-.accent-text { color: var(--accent); }
-
+/* --- 7. Footer Section --- */
 .footer {
-  background: var(--glass);
+  background: rgba(10, 12, 26, 0.95);
   backdrop-filter: blur(15px);
   border-top: 1px solid var(--border);
-  padding: 80px 0 30px;
+  padding: 80px 0 40px;
   margin-top: 100px;
+  position: relative;
+  z-index: 10;
 }
 
 .footer-inner {
@@ -137,49 +190,40 @@ body {
   justify-content: space-between;
   gap: 50px;
   flex-wrap: wrap;
-  margin-bottom: 50px;
 }
 
-.footer-brand { max-width: 300px; text-align: left; }
-.footer-links { display: flex; gap: 80px; }
-.link-group { text-align: left; }
-.link-group h4 { margin-bottom: 20px; color: var(--text); }
+.footer-brand { max-width: 300px; }
+
+.link-group h4 { margin-bottom: 20px; color: var(--text); text-transform: uppercase; font-size: 14px; }
+
 .link-group a { 
-    display: block; 
-    color: var(--text-muted); 
-    text-decoration: none; 
-    margin-bottom: 12px; 
-    transition: var(--transition);
+  display: block; 
+  color: var(--text-muted); 
+  text-decoration: none; 
+  margin-bottom: 12px; 
+  transition: var(--transition);
 }
+
 .link-group a:hover { color: var(--primary); padding-left: 5px; }
 
 .footer-bottom {
-  border-top: 1px solid var(--border);
+  margin-top: 40px;
   padding-top: 30px;
+  border-top: 1px solid rgba(255,255,255,0.05);
   text-align: center;
   color: var(--text-muted);
   font-size: 0.85rem;
 }
 
-/* --- Reveal System --- */
-.reveal {
-  opacity: 1; 
-  transform: none;
-  transition: all 0.8s ease-out;
-}
+/* --- 8. Reveal System --- */
+.reveal { opacity: 1; transform: none; transition: all 0.8s ease-out; }
+.js-enabled .reveal { opacity: 0; transform: translateY(20px); }
+.js-enabled .reveal.visible { opacity: 1; transform: translateY(0); }
 
-.js-enabled .reveal {
-  opacity: 0;
-  transform: translateY(20px);
-}
-
-.js-enabled .reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
+/* --- 9. Responsive --- */
 @media (max-width: 768px) {
-  .hero { flex-direction: column; text-align: center; }
-  .footer-inner { flex-direction: column; }
-  .footer-links { gap: 40px; }
+  .hero { flex-direction: column; text-align: center; padding: 60px 0; }
+  .nav-links { display: none; } /* Consider adding a hamburger menu */
+  .footer-inner { flex-direction: column; text-align: center; }
+  .footer-links { justify-content: center; gap: 40px; }
 }

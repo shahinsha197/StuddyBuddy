@@ -1,62 +1,74 @@
-document.addEventListener("DOMContentLoaded", async () => {
-    // Detect JS for animations
-    document.documentElement.classList.add('js-enabled');
+// --- 1. CONFIGURATION ---
+const API_KEY = "AIzaSyCQ6---BYyM7PtnKnXqTQ8mMWEq6r8Lk34"; // Put your key inside the quotes
+const MODEL_NAME = "gemini-1.5-flash";
 
-    // Load Components (Navbar and Footer)
-    await Promise.all([
-        loadComponent("navbar", "components/navbar.html"),
-        loadComponent("footer", "components/footer.html")
-    ]);
+const chatForm = document.getElementById('chatForm');
+const chatWindow = document.getElementById('chatWindow');
+const userInput = document.getElementById('userInput');
 
-    // Initialize Page Content
-    renderFeatures();
-    initReveal();
-});
+// --- 2. AI FETCH FUNCTION ---
+async function getAIResponse(userPrompt) {
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL_NAME}:generateContent?key=${API_KEY}`;
+    
+    const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            contents: [{ parts: [{ text: userPrompt }] }]
+        })
+    };
 
-async function loadComponent(id, file) {
-    const el = document.getElementById(id);
-    if (!el) return;
     try {
-        const res = await fetch(file);
-        if (res.ok) {
-            el.innerHTML = await res.text();
-        } else {
-            console.error(`Failed to load ${file}: ${res.status}`);
-        }
-    } catch (e) { 
-        console.warn("Error fetching component: " + file, e); 
+        const response = await fetch(url, requestOptions);
+        const data = await response.json();
+        
+        // Extracting the text from Gemini's response structure
+        return data.candidates[0].content.parts[0].text;
+    } catch (error) {
+        console.error("AI Error:", error);
+        return "I'm having trouble connecting to my brain right now. Please check your API key!";
     }
 }
 
-function renderFeatures() {
-    const grid = document.getElementById("featuresGrid");
-    if (!grid) return;
+// --- 3. CHAT LOGIC ---
+chatForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const message = userInput.value.trim();
+    if (!message) return;
 
-    // Data updated to use .png icons
-    const data = [
-        { t: "Simple Explanations", i: "images/book.png" },
-        { t: "Fun Learning", i: "images/game.png" },
-        { t: "Personalized AI", i: "images/brain.png" },
-        { t: "Progress Tracking", i: "images/chart.png" }
-    ];
+    // Show User Message
+    addMessage(message, 'user-message');
+    userInput.value = '';
 
-    grid.innerHTML = data.map(f => `
-        <div class="card reveal">
-            <img src="${f.i}" class="icon-img" alt="${f.t}">
-            <h3 style="color: var(--accent); margin-bottom: 10px;">${f.t}</h3>
-            <p style="color: var(--text-muted); font-size: 0.9rem;">Adaptive learning modules tailored to you.</p>
-        </div>
-    `).join('');
+    // Show "Thinking..." Placeholder
+    const thinkingId = "thinking-" + Date.now();
+    addMessage("Studying your question...", 'ai-message', thinkingId);
+
+    // Get Real AI Response
+    const aiText = await getAIResponse(message);
+
+    // Replace Placeholder with Real Answer
+    const placeholder = document.getElementById(thinkingId);
+    if (placeholder) {
+        placeholder.innerText = aiText;
+    }
+});
+
+function addMessage(text, className, id = null) {
+    const div = document.createElement('div');
+    div.className = `message ${className}`;
+    if (id) div.id = id;
+    div.innerText = text;
+    chatWindow.appendChild(div);
+    
+    // Auto-scroll to bottom
+    chatWindow.scrollTop = chatWindow.scrollHeight;
 }
-
-function initReveal() {
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add("visible");
-            }
-        });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
-}
+window.addEventListener('scroll', () => {
+    const nav = document.querySelector('.navbar');
+    if (window.scrollY > 50) {
+        nav.classList.add('scrolled');
+    } else {
+        nav.classList.remove('scrolled');
+    }
+});

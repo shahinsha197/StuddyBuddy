@@ -9,27 +9,68 @@
 </head>
 <body>
 
-<div id="navbar"></div>
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="index.html" class="logo">
+            <span class="logo-study">STUDY</span><span class="logo-buddy">BUDDY</span>
+        </a>
+
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li>
+                <a href="register.html" class="button-17" style="height: 40px; padding: 0 20px; font-size: 13px;">Get Started</a>
+            </li>
+        </ul>
+    </div>
+</nav>
 
 <main class="container">
     <section class="hero reveal">
-     <div class="hero-content">
-         <h1 style="font-size: 3.5rem;">Learn Smarter <br><span style="color:var(--accent)">Your Way</span></h1>
-         <p style="color:var(--text-muted); font-size: 1.2rem; margin-bottom:30px;">The AI tutor that adapts to your unique learning style.</p>
-        
-         <a href="register.html" class="button-17-pill" role="button">Start Learning Free</a>
-     </div>
-     <div class="hero-visual">
-        <img src="images/ai.png" alt="AI Assistant" class="hero-img">
-     </div>
-   </section>
+        <div class="hero-content">
+            <h1 style="font-size: 3.5rem; margin-bottom: 10px;">
+                Learn Smarter <br>
+                <span style="color:var(--accent)">Your Way</span>
+            </h1>
+            <p style="color:var(--text-muted); font-size: 1.2rem; margin-bottom: 40px;">
+                The AI tutor that adapts to your unique learning style.
+            </p>
+            
+            <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 12px;">
+                <a href="register.html" class="button-17" role="button">Start Learning Free</a>
+                <span style="color: var(--text-muted); font-size: 13px; margin-left: 45px; opacity: 0.7;">
+                </span>
+            </div>
+        </div>
 
-    <h2 class="reveal" style="text-align: center; font-size: 2.5rem; margin-top: 50px;">Platform Features</h2>
+        <div class="hero-visual">
+            <img src="images/ai.png" alt="AI Assistant" class="hero-img">
+        </div>
+    </section>
+
+    <h2 class="reveal" style="text-align: center; font-size: 2.5rem; margin-top: 80px;">Platform Features</h2>
     <section id="featuresGrid" class="grid"></section>
 </main>
 
 <div id="footer"></div>
 
+<script>
+    /* Quick script to make the 'reveal' system work if app.js is empty */
+    window.addEventListener('scroll', () => {
+        const reveals = document.querySelectorAll('.reveal');
+        reveals.forEach(el => {
+            const windowHeight = window.innerHeight;
+            const revealTop = el.getBoundingClientRect().top;
+            if (revealTop < windowHeight - 100) {
+                el.classList.add('visible');
+            }
+        });
+    });
+    // Trigger once on load
+    window.dispatchEvent(new Event('scroll'));
+</script>
+
 <script src="app.js"></script>
+
 </body>
 </html>

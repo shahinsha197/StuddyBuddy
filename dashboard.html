@@ -2,39 +2,188 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | StudyBuddy AI</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        body { overflow: hidden; height: 100vh; display: flex; }
+
+        /* --- Sidebar --- */
+        .sidebar {
+            width: 260px;
+            background: rgba(255, 255, 255, 0.03);
+            border-right: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .nav-item {
+            padding: 12px 15px;
+            border-radius: 12px;
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-bottom: 5px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: var(--glass);
+            color: var(--accent);
+        }
+
+        /* --- Main Chat Area --- */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: radial-gradient(circle at center, rgba(144, 97, 249, 0.05), transparent);
+        }
+
+        .chat-header {
+            padding: 20px 40px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-window {
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* --- Message Bubbles --- */
+        .message {
+            max-width: 70%;
+            padding: 15px 20px;
+            border-radius: 20px;
+            line-height: 1.5;
+            font-size: 15px;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .ai-message {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+
+        .user-message {
+            background: var(--primary);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+            box-shadow: 0 4px 15px rgba(144, 97, 249, 0.3);
+        }
+
+        /* --- Input Area --- */
+        .input-area {
+            padding: 30px 40px;
+            background: linear-gradient(to top, var(--bg), transparent);
+        }
+
+        .input-wrapper {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 100px; /* Matching the pill theme */
+            padding: 8px 10px 8px 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .input-wrapper input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: white;
+            outline: none;
+            font-size: 16px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 </head>
-<body style="display: grid; grid-template-columns: 280px 1fr; height: 100vh;">
-    
-    <aside style="background: var(--glass); border-right: 1px solid var(--glass-border); padding: 40px;">
-        <h2 style="margin-bottom: 40px;">StudyBuddy</h2>
-        <nav style="display: flex; flex-direction: column; gap: 15px;">
-            <a href="index.html" class="card" style="padding: 15px; text-decoration: none; color: white;">Home</a>
-            <a href="#" class="card" style="padding: 15px; text-decoration: none; color: white; border-color: var(--primary);">Dashboard</a>
-        </nav>
+<body>
+
+    <aside class="sidebar">
+        <h2 style="font-size: 1.5rem; margin-bottom: 30px;"><span class="accent-text">Study</span>Buddy</h2>
+        <a href="#" class="nav-item active">💬 Chat Tutor</a>
+        <a href="#" class="nav-item">📚 Library</a>
+        <a href="#" class="nav-item">📊 My Progress</a>
+        <a href="#" class="nav-item">⚙️ Settings</a>
+        <div style="margin-top: auto;">
+            <a href="index.html" class="nav-item" style="color: #ff4d4d;">Logout</a>
+        </div>
     </aside>
 
-    <main style="padding: 60px; overflow-y: auto;">
-        <h1 style="margin-bottom: 40px;">Learning Overview</h1>
-        
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-bottom: 40px;">
-            <div class="card"><h3>12</h3><p>Sessions</p></div>
-            <div class="card"><h3>5h</h3><p>Time Spent</p></div>
-            <div class="card"><h3>8</h3><p>Topics</p></div>
+    <main class="main-content">
+        <header class="chat-header">
+            <div>
+                <h3 style="margin:0;">Python Basics</h3>
+                <span style="font-size: 12px; color: var(--accent);">● AI Online</span>
+            </div>
+            <div style="color: var(--text-muted); font-size: 14px;">Session: 00:45:12</div>
+        </header>
+
+        <div class="chat-window" id="chatWindow">
+            <div class="message ai-message">
+                Hello! I'm your StudyBuddy AI. I noticed you were looking at <b>Python loops</b> last time. Ready to continue, or do you have a specific question today?
+            </div>
         </div>
 
-        <div class="card" style="min-height: 400px; display: flex; flex-direction: column;">
-            <h3>AI Tutor</h3>
-            <div id="chatMessages" style="flex: 1; margin: 20px 0; border-top: 1px solid var(--glass-border); padding-top: 20px;">
-                <p>🤖 Hello! What would you like to master today?</p>
-            </div>
-            <div style="display: flex; gap: 10px;">
-                <input type="text" style="flex: 1; background: var(--glass); border: 1px solid var(--glass-border); border-radius: 10px; padding: 15px; color: white;">
-                <button class="btn-primary" style="padding: 10px 25px;">Send</button>
-            </div>
+        <div class="input-area">
+            <form class="input-wrapper" id="chatForm">
+                <input type="text" id="userInput" placeholder="Ask your tutor anything..." autocomplete="off">
+                <button type="submit" class="button-17" style="height: 44px; padding: 0 25px; font-size: 14px;">
+                    Send
+                </button>
+            </form>
         </div>
     </main>
 
+    <script>
+        const chatForm = document.getElementById('chatForm');
+        const chatWindow = document.getElementById('chatWindow');
+        const userInput = document.getElementById('userInput');
+
+        chatForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (!userInput.value.trim()) return;
+
+            // 1. Add User Message
+            addMessage(userInput.value, 'user-message');
+            
+            // 2. Clear Input
+            const text = userInput.value;
+            userInput.value = '';
+
+            // 3. Fake AI Response
+            setTimeout(() => {
+                addMessage(`That's a great question about "${text}"! Let me explain that in simple terms...`, 'ai-message');
+            }, 800);
+        });
+
+        function addMessage(text, className) {
+            const div = document.createElement('div');
+            div.className = `message ${className}`;
+            div.innerText = text;
+            chatWindow.appendChild(div);
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        }
+    </script>
 </body>
 </html>
