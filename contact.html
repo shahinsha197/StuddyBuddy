@@ -4,19 +4,221 @@
     <meta charset="UTF-8">
     <title>Contact | StudyBuddy AI</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* --- 1. GLOBAL THEME --- */
+        :root {
+            --bg: #030712;
+            --nav-bg: rgba(10, 12, 26, 0.95);
+            --primary: #9061f9;
+            --primary-light: #a782fa;
+            --accent: #00d4ff;
+            --glass: rgba(255, 255, 255, 0.05);
+            --border: rgba(144, 97, 249, 0.2);
+            --text: #ffffff;
+            --text-muted: #9ca3af;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg);
+            background-image: radial-gradient(circle at top left, rgba(144, 97, 249, 0.15), transparent);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            padding-top: 80px;
+        }
+
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; }
+
+        /* --- 2. NAVBAR --- */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 80px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-container {
+            width: 90%; max-width: 1200px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+
+        .logo { text-decoration: none; font-weight: 900; font-size: 26px; display: flex; }
+        .logo-study { color: #fff; }
+        .logo-buddy { color: var(--primary); text-shadow: 0 0 10px rgba(144, 97, 249, 0.4); }
+
+        .nav-links { list-style: none; display: flex; align-items: center; gap: 25px; }
+        .nav-links a { text-decoration: none; color: var(--text-muted); font-weight: 600; font-size: 14px; transition: 0.3s; }
+        .nav-links a:hover { color: var(--primary); }
+
+        /* --- 3. 3D PILL BUTTON --- */
+        .button-17 {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(180deg, var(--primary-light) 0%, var(--primary) 100%);
+            color: #fff !important;
+            text-decoration: none !important;
+            font-weight: 700;
+            height: 54px;
+            padding: 0 40px;
+            border-radius: 100px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 20px -5px rgba(144, 97, 249, 0.5), 
+                        inset 0 4px 5px rgba(255, 255, 255, 0.4), 
+                        inset 0 -4px 5px rgba(0, 0, 0, 0.3);
+            transition: 0.2s;
+        }
+        .button-17:hover { transform: translateY(-3px); box-shadow: 0 15px 30px -5px rgba(144, 97, 249, 0.6); }
+        .nav-btn { height: 40px !important; padding: 0 20px !important; font-size: 13px !important; }
+
+        /* --- 4. HERO & FLOATING AI --- */
+        .hero { display: flex; align-items: center; padding: 100px 0; gap: 50px; }
+        .hero-content h1 { font-size: 3.5rem; line-height: 1.1; font-weight: 800; }
+        .accent-text { color: var(--accent); }
+        .btn-group { display: flex; flex-direction: column; gap: 10px; margin-top: 30px; }
+        .sub-label { font-size: 12px; color: var(--text-muted); padding-left: 45px; opacity: 0.6; }
+
+        .hero-img { width: 100%; max-width: 450px; filter: drop-shadow(0 0 30px rgba(144, 97, 249, 0.2)); }
+        
+        .floating-ai { animation: float 6s ease-in-out infinite; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* --- 5. FEATURE GRID & HOVER GLOW --- */
+        .section-title { text-align: center; font-size: 2.5rem; margin: 80px 0 50px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 25px; padding-bottom: 100px; }
+
+        .card {
+            background: var(--glass);
+            padding: 40px 25px;
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            text-align: center;
+            transition: 0.3s;
+            position: relative;
+        }
+        .card:hover { 
+            transform: translateY(-10px); 
+            border-color: var(--primary); 
+            box-shadow: 0 0 30px rgba(144, 97, 249, 0.2); 
+            background: rgba(144, 97, 249, 0.05);
+        }
+        .icon-img { width: 80px; height: 80px; margin-bottom: 20px; filter: drop-shadow(0 10px 15px rgba(144, 97, 249, 0.3)); }
+
+        /* --- 6. UNBREAKABLE GRID FOOTER --- */
+        .footer {
+            background: #05070a;
+            border-top: 1px solid var(--border);
+            padding: 80px 0 0 0;
+            margin-top: 100px;
+            width: 100%;
+        }
+
+        .footer-grid {
+            width: 90%; max-width: 1200px; margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr; 
+            gap: 40px;
+            padding-bottom: 60px;
+        }
+
+        .footer-brand p { color: var(--text-muted); font-size: 14px; margin-top: 15px; max-width: 300px; }
+
+        .footer-col h4 {
+            color: #fff; font-size: 14px; text-transform: uppercase; 
+            margin-bottom: 25px; letter-spacing: 1.5px;
+        }
+
+        .footer-col a {
+            display: block; color: var(--text-muted); 
+            text-decoration: none; font-size: 14px; 
+            margin-bottom: 12px; transition: 0.2s;
+        }
+        .footer-col a:hover { color: var(--primary); transform: translateX(5px); }
+
+        .footer-bottom {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 30px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+            color: #4b5563; font-size: 13px;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .hero { flex-direction: column; text-align: center; }
+        }
+        @media (max-width: 600px) {
+            .footer-grid { grid-template-columns: 1fr; text-align: center; }
+            .footer-brand { align-items: center; display: flex; flex-direction: column; }
+        }
+    </style>
 </head>
 <body>
-    <div id="navbar"></div>
-    <section class="section container reveal" style="padding: 120px 0;">
-        <h2 style="text-align: center; margin-bottom: 40px;">Get in Touch</h2>
-        <form class="card" style="max-width: 600px; margin: auto; display: flex; flex-direction: column; gap: 20px;">
-            <input type="text" placeholder="Your Name" style="padding: 15px; background: var(--glass); border: 1px solid var(--border); color: white; border-radius: 10px;">
-            <input type="email" placeholder="Email Address" style="padding: 15px; background: var(--glass); border: 1px solid var(--border); color: white; border-radius: 10px;">
-            <textarea placeholder="How can we help?" style="padding: 15px; background: var(--glass); border: 1px solid var(--border); color: white; border-radius: 10px; min-height: 150px;"></textarea>
-            <button class="btn-primary">Send Message</button>
-        </form>
-    </section>
-    <div id="footer"></div>
-    <script src="app.js"></script>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-study">STUDY</span><span class="logo-buddy">BUDDY</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="features.html">Features</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="register.html" class="button-17 nav-btn">Join Now</a></li>
+            </ul>
+        </div>  
+    </nav>
+    <div class="container" style="padding: 120px 0;">
+        <div class="card" style="max-width: 600px; margin: 0 auto;">
+            <h2 style="text-align: center; margin-bottom: 30px;">Get in <span class="accent-text">Touch</span></h2>
+            <form>
+                <input type="text" placeholder="Full Name">
+                <input type="email" placeholder="Email Address">
+                <textarea rows="5" placeholder="How can we help you learn?"></textarea>
+                <button type="submit" class="button-17" style="width: 100%;">Send Message</button>
+            </form>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="logo">
+                    <span class="logo-study">STUDY</span><span class="logo-buddy">BUDDY</span>
+                </div>
+                <p>Revolutionizing education through adaptive AI. Available 24/7.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Platform</h4>
+                <a href="#">AI Tutor</a>
+                <a href="#">Summaries</a>
+                <a href="#">Study Games</a>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <a href="about.html">About Us</a>
+                <a href="contact.html">Contact</a>
+                <a href="#">Vision</a>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 StudyBuddy AI. All rights reserved.<span class="accent-text"></span>
+        </div>
+    </footer>
 </body>
 </html>
