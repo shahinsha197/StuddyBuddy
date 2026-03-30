@@ -1,7 +1,7 @@
-/* --- Global Theme & Variables --- */
+/* --- Variables --- */
 :root {
     --bg: #030712;
-    --nav-bg: rgba(10, 12, 26, 0.9);
+    --nav-bg: rgba(10, 12, 26, 0.95);
     --primary: #9061f9;
     --primary-light: #a782fa;
     --accent: #00d4ff;
@@ -9,78 +9,47 @@
     --border: rgba(144, 97, 249, 0.2);
     --text: #ffffff;
     --text-muted: #9ca3af;
-    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* --- Base Styles & Layout Fixes --- */
-html, body {
-    height: auto !important;
-    min-height: 100vh;
-    margin: 0;
-    padding: 0;
+/* --- Reset --- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
     background-color: var(--bg);
     background-image: radial-gradient(circle at top left, rgba(144, 97, 249, 0.15), transparent);
     color: var(--text);
     font-family: 'Inter', sans-serif;
+    line-height: 1.6;
     overflow-x: hidden;
-    padding-top: 80px; /* Space for navbar */
-    display: block;
 }
 
-.main-wrapper {
-    width: 100%;
-    min-height: 800px;
-}
+.container { width: 90%; max-width: 1200px; margin: 0 auto; }
 
-.container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-/* --- 1. Enhanced Glass Navbar --- */
+/* --- Navbar --- */
 .navbar {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 80px;
-    z-index: 9999;
+    top: 0; left: 0; width: 100%; height: 80px;
     background: var(--nav-bg);
     backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border);
+    z-index: 1000;
     display: flex;
     align-items: center;
 }
 
 .nav-container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    width: 90%; max-width: 1200px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center;
 }
 
-.logo {
-    text-decoration: none;
-    font-weight: 900;
-    font-size: 26px;
-    display: flex;
-}
-.logo-study { color: #ffffff; }
+.logo { text-decoration: none; font-weight: 900; font-size: 26px; display: flex; }
+.logo-study { color: #fff; }
 .logo-buddy { color: var(--primary); text-shadow: 0 0 10px rgba(144, 97, 249, 0.4); }
 
-.nav-links {
-    list-style: none;
-    display: flex;
-    align-items: center;
-    gap: 30px;
-}
-.nav-links a { text-decoration: none; color: rgba(255, 255, 255, 0.7); font-size: 14px; font-weight: 600; transition: var(--transition); }
-.nav-links a:hover { color: var(--primary); }
+.nav-links { list-style: none; display: flex; align-items: center; gap: 30px; }
+.nav-links a { text-decoration: none; color: var(--text-muted); font-weight: 600; font-size: 14px; }
 
-/* --- 2. The 3D Pill Button --- */
+/* --- Button --- */
 .button-17 {
     display: inline-flex;
     align-items: center;
@@ -90,40 +59,32 @@ html, body {
     text-decoration: none !important;
     font-weight: 700;
     height: 54px;
-    padding: 0 45px;
+    padding: 0 40px;
     border-radius: 100px;
+    box-shadow: 0 10px 20px -5px rgba(144, 97, 249, 0.5), inset 0 4px 5px rgba(255, 255, 255, 0.4), inset 0 -4px 5px rgba(0, 0, 0, 0.3);
+    transition: 0.2s;
     border: none;
     cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.23, 1, 0.32, 1);
-    box-shadow: 
-        0 10px 20px -5px rgba(144, 97, 249, 0.5),
-        inset 0 4px 5px rgba(255, 255, 255, 0.4),
-        inset 0 -4px 5px rgba(0, 0, 0, 0.3);
-}
-.button-17:hover {
-    transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 15px 30px -5px rgba(144, 97, 249, 0.6), inset 0 4px 5px rgba(255, 255, 255, 0.6);
-}
-.button-17:active {
-    transform: translateY(2px) scale(0.97);
-    box-shadow: 0 5px 10px rgba(144, 97, 249, 0.3), inset 0 5px 8px rgba(0, 0, 0, 0.4);
 }
 .nav-btn { height: 40px !important; padding: 0 20px !important; font-size: 13px !important; }
 
-/* --- 3. Hero Section --- */
-.hero { display: flex; align-items: center; padding: 100px 0; gap: 50px; }
-.hero-content h1 { font-size: 3.5rem; margin: 0; line-height: 1.1; font-weight: 800; }
-.hero-content p { color: var(--text-muted); font-size: 1.2rem; margin: 25px 0 40px; max-width: 500px; }
-.btn-group { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
-.sub-label { font-size: 12px; color: var(--text-muted); padding-left: 45px; opacity: 0.6; }
+/* --- Content --- */
+.content-wrapper { padding-top: 120px; }
 
-/* --- 4. The Corrected Feature Grid --- */
+.hero { display: flex; align-items: center; padding: 60px 0; gap: 50px; }
+.hero-content h1 { font-size: 3.5rem; line-height: 1.1; font-weight: 800; }
+.accent-text { color: var(--accent); }
+.btn-group { display: flex; flex-direction: column; gap: 10px; margin-top: 30px; }
+.sub-label { font-size: 12px; color: var(--text-muted); padding-left: 45px; opacity: 0.6; }
+.hero-img { width: 100%; max-width: 450px; filter: drop-shadow(0 0 30px rgba(144, 97, 249, 0.2)); }
+
+.section-title { text-align: center; font-size: 2.5rem; margin: 80px 0 50px; }
+
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 25px;
-    padding: 40px 0 100px 0;
-    width: 100%;
+    padding-bottom: 100px;
 }
 
 .card {
@@ -132,83 +93,41 @@ html, body {
     border-radius: 24px;
     border: 1px solid var(--border);
     text-align: center;
-    transition: var(--transition);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    transition: 0.3s;
 }
+.card:hover { transform: translateY(-10px); border-color: var(--primary); box-shadow: 0 0 30px rgba(144, 97, 249, 0.2); }
+.icon-img { width: 80px; height: 80px; margin-bottom: 20px; }
 
-.card:hover {
-    transform: translateY(-10px);
-    border-color: var(--primary);
-    background: rgba(144, 97, 249, 0.05);
-}
-
-.icon-img {
-    width: 80px;
-    height: 80px;
-    margin-bottom: 20px;
-    object-fit: contain;
-    filter: drop-shadow(0 10px 15px rgba(144, 97, 249, 0.3));
-}
-
-.card h3 { font-size: 1.4rem; font-weight: 600; margin: 0 0 10px; color: #fff; }
-.card p { color: var(--text-muted); font-size: 14px; line-height: 1.6; }
-
-/* --- 5. Final Fixed Footer --- */
+/* --- FOOTER FIX --- */
 .footer {
-    width: 100%;
-    background: rgba(10, 12, 26, 1);
+    background: #05070a;
     border-top: 1px solid var(--border);
-    padding: 80px 0 40px;
+    padding: 80px 0 0 0;
     margin-top: 100px;
-    position: relative;
-    z-index: 10;
 }
-.footer-inner { 
-    width: 90%; 
-    max-width: 1200px; 
-    margin: 0 auto; 
+
+.footer-container {
+    width: 90%; max-width: 1200px; margin: 0 auto;
     display: flex; 
     justify-content: space-between; 
     flex-wrap: wrap; 
-    gap: 40px; 
+    gap: 40px;
+    padding-bottom: 60px;
 }
-.link-group h4 { color: #fff; margin-bottom: 20px; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
-.link-group a { display: block; color: var(--text-muted); text-decoration: none; margin-bottom: 12px; font-size: 14px; transition: 0.3s; }
-.link-group a:hover { color: var(--primary); padding-left: 5px; }
+
+.footer-brand { flex: 2; min-width: 250px; }
+.footer-tagline { color: var(--text-muted); font-size: 14px; margin-top: 20px; max-width: 300px; }
+
+.footer-column { flex: 1; min-width: 150px; }
+.footer-column h4 { font-size: 14px; text-transform: uppercase; margin-bottom: 20px; color: #fff; }
+.footer-column a { display: block; color: var(--text-muted); text-decoration: none; font-size: 14px; margin-bottom: 10px; transition: 0.2s; }
+.footer-column a:hover { color: var(--primary); }
+
 .footer-bottom { 
-    border-top: 1px solid rgba(255,255,255,0.05); 
-    margin-top: 40px; 
-    padding-top: 30px; 
+    background: rgba(0,0,0,0.3); 
+    padding: 30px 0; 
     text-align: center; 
-    color: #4b5563; 
-    font-size: 12px; 
-}
-
-/* --- 6. Reveal System Fixed --- */
-.reveal { 
-    opacity: 1; 
-    transition: 0.8s ease-out; 
-}
-
-/* Hide only if JS is enabled and element is not yet 'visible' */
-.js-enabled .reveal:not(.visible) { 
-    opacity: 0 !important; 
-    transform: translateY(30px) !important; 
-}
-
-/* Show when triggered */
-.visible { 
-    opacity: 1 !important; 
-    transform: translateY(0) !important; 
-}
-
-.accent-text { color: var(--accent); }
-
-@media (max-width: 992px) {
-    .hero { flex-direction: column; text-align: center; padding: 60px 0; }
-    .hero-content h1 { font-size: 2.8rem; }
-    .hero-content p { margin: 25px auto 40px; }
-    .btn-group { align-items: center; }
+    border-top: 1px solid rgba(255,255,255,0.05);
+    font-size: 13px;
+    color: #4b5563;
 }
